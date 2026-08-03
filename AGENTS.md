@@ -1,28 +1,30 @@
 # 仓库指南
 
-## 项目结构与模块组织
+## 项目与目录
 
-当前仓库包含产品定义材料，尚未包含具体实现：
+SINS 是跨平台、本地优先的 AI 桌面效率工具箱。当前仓库只有 PRD 与目录骨架，未配置 Electron、React、TypeScript、Python、FastAPI、FFmpeg、构建或测试工具；不得虚构命令、依赖、接口或检查结果。引入后再同步更新 `README.md`。
 
-- `README.md` 提供简短的项目说明。
-- `docx/SINS_Product_Document_v0.1.docx` 是已版本化的产品需求文档，也是 MVP 范围的事实依据。
+- `apps/desktop`：Electron 桌面端及前端测试。
+- `apps/service`：本地 Python/FastAPI 服务。
+- `packages/contracts`：前后端共享模型与接口契约。
+- `packages/ui`：无业务状态的可复用 UI 组件。
+- `docs`：工程、架构与功能文档；`docx/` PRD 是 MVP 依据。
+- `scripts`：有文档说明的开发、构建和检查脚本。
 
-PRD 规划使用 Electron、React 和 TypeScript 构建桌面客户端，并由本地 Python/FastAPI 服务支撑。开始实现后，请将桌面端代码、本地服务、测试和静态资源分别置于清晰命名的顶层目录中，例如 `desktop/`、`service/`、`tests/` 和 `assets/`。按能力保持各工具模块自包含，例如 `media`、`pdf`、`ai` 或 `network`。
+## Electron 与 MVC
 
-## 构建、测试与开发命令
+`main` 负责窗口、系统能力、文件选择和本地服务生命周期。`preload` 只通过安全 IPC 桥接暴露最小、受控且带 TypeScript 类型的 API。`renderer` 是 React 界面，禁止直接使用 Node.js、`fs`、`child_process`、文件系统、shell 或完整 Electron API。
 
-当前尚未提供应用构建、包清单、格式化工具、代码检查工具或测试运行器。在相应工具提交前，不要记录或依赖 `npm test` 一类的占位命令。引入运行环境时，请将安装、开发、构建、检查和测试命令补充到 `README.md`，并确保可以在全新检出的仓库中复现。
+前端按 `renderer/modules/<feature>/` 组织：`view/` 只展示界面；`controller/` 处理交互、状态流转和业务编排；`model/` 管理类型、状态、请求和转换。UI 必须经 Controller 与 Model 调用 IPC 或 FastAPI，不得直接调用。
 
-## 代码风格与命名约定
+## 后端、安全与协作
 
-当前尚未确立代码风格。计划中的 TypeScript 使用 2 空格缩进；React 组件使用 `PascalCase`；函数、变量和导出工具的文件名使用 `camelCase`，例如 `convertVideoToGif.ts`。Python 遵循 PEP 8，使用 4 空格缩进，模块和函数采用 `snake_case`，公共接口应提供类型标注。首次提交代码时加入自动格式化和代码检查工具；提交前格式化修改过的文件。
+后端模块为 `app/modules/<feature>/`：`router.py` 定义接口，`schemas.py` 定义请求响应，`service.py` 编排业务，`*_adapter.py` 封装 FFmpeg、Demucs 等工具。后端不得信任前端路径、命令参数或 MIME 类型；校验规范化路径、存在性、类型、大小和访问范围，防止路径穿越。子进程使用参数数组，必须支持超时、取消和退出清理。
 
-## 测试指南
+用户数据默认不上传。涉及文件系统、子进程、网络、模型下载或用户数据时，先说明安全影响与授权方式。临时文件写入受控目录并在完成、失败或取消后清理；日志不得记录文件内容或敏感路径。
 
-当前没有自动化测试。请为每个新增模块同时添加测试，并使用描述行为的测试名称，例如 `converts_mp4_to_gif_with_selected_frame_rate`。覆盖正常处理、无效输入、取消操作和本地文件错误路径。在引入测试框架并建立基准前，不设定覆盖率阈值。
+TypeScript 用 2 空格、`PascalCase` 组件与 `camelCase` 变量；Python 用 4 空格、PEP 8、`snake_case` 和公共接口类型标注。每项功能同步评估前端、后端、契约、测试和文档；测试覆盖成功、无效输入、取消、超时和清理。提交使用简短祈使式，如 `media: validate output path`；PR 说明行为、需求、验证、安全影响，UI 改动附截图。
 
-## 提交与拉取请求指南
+## AI 执行规范
 
-提交历史使用简短、直接的主题，例如 `Initial commit` 和 `产品需求文档`，尚未形成正式规范。请使用描述单一改动的简洁祈使式主题；可选地加上作用域，例如 `media: add GIF conversion validation`。无关改动应拆分为不同提交。
-
-拉取请求应概述用户可见的变更，关联对应的 Issue 或 PRD 章节，列出已完成的验证，并为桌面端界面改动附上截图。任何上传数据或需要网络访问的依赖都必须明确说明：SINS 以本地优先，默认不得将用户文件传出本机。
+AI 必须先读本文件、相关 `docs/` 和现有代码。不得重构、移动或删除无关文件，不得臆造包、命令、测试结果或接口。修改后运行现有可用检查；缺少工具须说明原因，并保持代码、测试、契约和文档一致。
