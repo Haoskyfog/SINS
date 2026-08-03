@@ -2,7 +2,7 @@
 
 ## 架构目标与本地优先
 
-SINS 以 Electron + React + TypeScript 作为桌面端、Python + FastAPI 作为本地服务，规划集成 FFmpeg、Demucs、PyTorch 与 SQLite。当前这些技术均未配置，本文只规定未来实现边界，不代表已有依赖、命令或接口。用户文件、任务信息、模型推理和结果默认保留本机；网络、模型下载、遥测和同步必须由用户明确触发，说明用途、范围、保留时间和离线失败行为，且不得默认上传用户文件、内容或目录。
+SINS 以 Electron + React + TypeScript 作为桌面端、Python + FastAPI 作为本地服务，规划集成 FFmpeg、Demucs、PyTorch 与 SQLite。桌面端已配置 Electron Forge、Vite、React 和 TypeScript；本地服务、媒体工具、模型与测试框架尚未配置。本文不代表未实现的依赖、命令或接口。用户文件、任务信息、模型推理和结果默认保留本机；网络、模型下载、遥测和同步必须由用户明确触发，说明用途、范围、保留时间和离线失败行为，且不得默认上传用户文件、内容或目录。
 
 ## 目录与归属
 
@@ -25,7 +25,7 @@ scripts/                      已说明用途的辅助脚本
 docx/                         原始 PRD
 ```
 
-按功能域维护，不跨端复制模型。前端使用 kebab-case，如 `video-to-gif`；后端使用 snake_case，如 `video_to_gif`。只有跨域通用能力才能进入 `shared`、`core` 或 `infrastructure`。新增包、配置、脚本、命令或工具时，必须在 `README.md` 记录真实安装、开发、构建、检查和测试方式；当前不得编造。
+按功能域维护，不跨端复制模型。前端使用 kebab-case，如 `video-to-gif`；后端使用 snake_case，如 `video_to_gif`。只有跨域通用能力才能进入 `shared`、`core` 或 `infrastructure`。新增包、配置、脚本、命令或工具时，必须在 `README.md` 记录真实安装、开发、构建、检查和测试方式；尚未配置的服务端与业务工具不得编造。
 
 ## Electron 与 IPC 边界
 

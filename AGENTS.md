@@ -2,7 +2,7 @@
 
 ## 项目与目录
 
-SINS 是跨平台、本地优先的 AI 桌面效率工具箱。当前仓库只有 PRD 与目录骨架，未配置 Electron、React、TypeScript、Python、FastAPI、FFmpeg、构建或测试工具；不得虚构命令、依赖、接口或检查结果。引入后再同步更新 `README.md`。
+SINS 是跨平台、本地优先的 AI 桌面效率工具箱。桌面端已配置 Electron Forge、Vite、React 与 TypeScript；Python、FastAPI、FFmpeg、模型和测试框架仍未配置。不得虚构命令、依赖、接口或检查结果；新增后同步更新 `README.md`。
 
 - `apps/desktop`：Electron 桌面端及前端测试。
 - `apps/service`：本地 Python/FastAPI 服务。
