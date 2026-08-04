@@ -56,6 +56,7 @@ button { cursor: pointer; }
 .panel-heading h2 { margin: 5px 0 0; color: #26322e; font-size: 20px; font-weight: 600; }
 .panel-count { color: #66716b; font-size: 13px; }
 .tool-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; }
+.empty-recent-tools { display: grid; min-height: 132px; margin: 0; place-items: center; color: #718078; font-size: 15px; line-height: 1.6; text-align: center; }
 .tool-card { display: grid; grid-template-columns: 28px 1fr 18px; align-items: center; min-height: 96px; padding: 16px; border: 1px solid #d5d9d0; border-radius: 6px; color: #304039; background: #ffffff; text-align: left; }
 .tool-card:hover { border-color: #76a595; background: #f1f6f0; }
 .card-icon { display: grid; place-items: center; width: 22px; height: 22px; border: 1px solid #91a59b; color: #317664; font-size: 18px; }

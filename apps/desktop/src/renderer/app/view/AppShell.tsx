@@ -6,7 +6,8 @@ type AppShellProps = {
   children: ReactNode;
   selectedToolId: ToolId | null;
   statusMessage: string;
-  onSelectTool: (toolId: ToolId | null) => void;
+  onSelectTool: (toolId: ToolId) => void;
+  onShowHome: () => void;
   onRefreshStatus: () => void;
 };
 
@@ -15,12 +16,13 @@ export function AppShell({
   selectedToolId,
   statusMessage,
   onSelectTool,
+  onShowHome,
   onRefreshStatus,
 }: AppShellProps) {
   return (
     <main className="shell">
       <aside className="sidebar">
-        <button className="brand" onClick={() => onSelectTool(null)} type="button">
+        <button className="brand" onClick={onShowHome} type="button">
           <span className="brand-mark">S</span><span>SINS</span>
         </button>
         <div className="sidebar-label">工具箱</div>
