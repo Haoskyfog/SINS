@@ -10,7 +10,6 @@ export function ToolWorkspace({ tool, onBack }: ToolWorkspaceProps) {
     <section className="feature-workspace" aria-label={`${tool.label} 工作区`}>
       <button className="back-button" onClick={onBack} type="button">← 返回工具总览</button>
       <div className="feature-heading">
-        <p className="eyebrow">TOOL WORKSPACE</p>
         <h1>{tool.label}</h1>
         <p>{tool.description}</p>
       </div>

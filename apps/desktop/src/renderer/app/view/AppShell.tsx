@@ -41,14 +41,9 @@ export function AppShell({
             </section>
           ))}
         </nav>
-        <div className="sidebar-footer">本地优先 · 模块化</div>
       </aside>
 
       <section className="content">
-        <header className="topbar">
-          <span className="eyebrow">WORKSPACE</span>
-          <span className="status-dot" /> 本地环境
-        </header>
         {children}
         <footer className="app-footer">
           <span>{statusMessage}</span>

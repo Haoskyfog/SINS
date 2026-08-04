@@ -46,7 +46,7 @@ button { cursor: pointer; }
 .topbar { display: flex; align-items: center; gap: 8px; color: #4d5953; font-size: 13px; }
 .topbar .eyebrow { margin-right: auto; }
 .status-dot { width: 7px; height: 7px; border-radius: 50%; background: #3c8b76; }
-.hero { max-width: 760px; padding: 92px 0 58px; }
+.hero { max-width: 760px; padding: 0 0 58px; }
 .hero .eyebrow { color: #2f7968; }
 .hero h1 { max-width: 720px; margin: 12px 0 16px; color: #1d2926; font-size: 42px; font-weight: 650; line-height: 1.15; letter-spacing: 0; }
 .hero-copy { margin: 0; color: #5e6963; font-size: 16px; line-height: 1.6; }
@@ -67,7 +67,7 @@ button { cursor: pointer; }
 .text-button { border: 0; color: #2f7968; background: transparent; }
 .text-button:hover { color: #174d40; }
 
-.feature-workspace { display: flex; min-height: 100%; flex-direction: column; padding: 54px 0 32px; }
+.feature-workspace { display: flex; min-height: 100%; flex-direction: column; padding: 0 0 32px; }
 .back-button { align-self: flex-start; padding: 0; border: 0; color: #2f7968; background: transparent; font-size: 13px; }
 .back-button:hover { color: #174d40; }
 .feature-heading { max-width: 680px; padding: 42px 0 58px; }
