@@ -1,15 +1,13 @@
 import { useState } from 'react';
 import { HomePage } from '../modules/home';
 import { useAppInfoController } from './controller/useAppInfoController';
-import { getToolById } from './model/toolCatalog';
 import type { ToolId } from './model/toolCatalog';
 import { AppShell } from './view/AppShell';
-import { ToolWorkspace } from './view/ToolWorkspace';
+import { FeatureWorkspaceRouter } from './view/FeatureWorkspaceRouter';
 
 export function App() {
   const [selectedToolId, setSelectedToolId] = useState<ToolId | null>(null);
   const { state, refresh } = useAppInfoController();
-  const selectedTool = selectedToolId ? getToolById(selectedToolId) : null;
 
   return (
     <AppShell
@@ -18,8 +16,8 @@ export function App() {
       selectedToolId={selectedToolId}
       statusMessage={state.message}
     >
-      {selectedTool ? (
-        <ToolWorkspace onBack={() => setSelectedToolId(null)} tool={selectedTool} />
+      {selectedToolId ? (
+        <FeatureWorkspaceRouter onBack={() => setSelectedToolId(null)} toolId={selectedToolId} />
       ) : (
         <HomePage onSelectTool={setSelectedToolId} />
       )}

@@ -11,7 +11,7 @@
 3. `preload` 仅暴露只读的 `app:get-info` 示例接口。
 4. Renderer 提供应用壳和 `modules/home` MVC 示例；View 经 Controller/Model 调用桥接。
 5. `packages/contracts` 定义应用信息和统一 IPC 结果类型。
-6. `App` 持有当前工具选择状态；`AppShell` 负责导航，欢迎页与工具工作区作为独立 View 渲染。
+6. `App` 持有当前工具选择状态；`AppShell` 负责导航，`FeatureWorkspaceRouter` 使用完整的 `ToolId` 映射到对应功能模块的独立右侧页面。
 7. 左侧导航栏与右侧内容区各自滚动；选择工具只切换右侧工作区，不耦合具体处理能力。
 
 ## 后续阶段
