@@ -1,54 +1,34 @@
-import { useHomeController } from '../controller/useHomeController';
+import { allTools } from '../../../app/model/toolCatalog';
+import type { ToolId } from '../../../app/model/toolCatalog';
 
-const toolGroups = [
-  { label: '文件工具', items: ['PDF 工具'] },
-  { label: '媒体工具', items: ['视频转 GIF', '音频去人声'] },
-  { label: '网络工具', items: ['局域网传输'] },
-];
+type HomePageProps = {
+  onSelectTool: (toolId: ToolId) => void;
+};
 
-export function HomePage() {
-  const { state, refresh } = useHomeController();
-
+export function HomePage({ onSelectTool }: HomePageProps) {
   return (
-    <main className="shell">
-      <aside className="sidebar">
-        <div className="brand"><span className="brand-mark">S</span><span>SINS</span></div>
-        <div className="sidebar-label">工具箱</div>
-        <nav aria-label="工具导航">
-          {toolGroups.map((group) => (
-            <section className="tool-group" key={group.label}>
-              <h2>{group.label}</h2>
-              {group.items.map((item, index) => (
-                <button className={`tool-item ${index === 0 && group.label === '媒体工具' ? 'active' : ''}`} key={item} type="button">
-                  <span className="tool-dot" />{item}
-                </button>
-              ))}
-            </section>
-          ))}
-        </nav>
-        <div className="sidebar-footer">本地优先 · 模块化</div>
-      </aside>
+    <>
+      <div className="hero welcome-hero">
+        <p className="eyebrow">SINS TOOLBOX</p>
+        <h1>在 SINS 上完成你想做的任何事情吧！</h1>
+        <p className="hero-copy">请选择一个工具。</p>
+      </div>
 
-      <section className="content">
-        <header className="topbar"><span className="eyebrow">WORKSPACE</span><span className="status-dot" /> 本地环境</header>
-        <div className="hero">
-          <p className="eyebrow">SINS TOOLBOX</p>
-          <h1>把繁琐任务，留在本机完成。</h1>
-          <p className="hero-copy">选择一个工具开始。文件默认只在本机处理。</p>
+      <section className="workspace-panel" aria-label="工作区">
+        <div className="panel-heading">
+          <div><span className="eyebrow">TOOLS</span><h2>从一个本地任务开始</h2></div>
+          <span className="panel-count">{allTools.length} 个模块</span>
         </div>
-        <section className="workspace-panel" aria-label="工作区">
-          <div className="panel-heading"><div><span className="eyebrow">READY</span><h2>选择一个工具</h2></div><span className="panel-count">{toolGroups.reduce((count, group) => count + group.items.length, 0)} 个模块</span></div>
-          <div className="tool-grid">
-            {toolGroups.flatMap((group) => group.items).map((item) => (
-              <button className="tool-card" type="button" key={item}><span className="card-icon">+</span><span>{item}</span><span className="arrow">→</span></button>
-            ))}
-          </div>
-        </section>
-        <footer className="app-footer">
-          <span>{state.status === 'ready' ? `SINS ${state.appInfo?.version} · ${state.appInfo?.platform}` : state.status === 'error' ? state.errorMessage : '正在连接本地环境…'}</span>
-          <button className="text-button" onClick={() => void refresh()} type="button">刷新状态</button>
-        </footer>
+        <div className="tool-grid">
+          {allTools.map((tool) => (
+            <button className="tool-card" key={tool.id} onClick={() => onSelectTool(tool.id)} type="button">
+              <span className="card-icon">+</span>
+              <span><strong>{tool.label}</strong><small>{tool.description}</small></span>
+              <span className="arrow">→</span>
+            </button>
+          ))}
+        </div>
       </section>
-    </main>
+    </>
   );
 }
