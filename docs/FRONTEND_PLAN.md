@@ -14,6 +14,8 @@
 6. `App` 持有当前工具选择状态；`AppShell` 负责导航，`FeatureWorkspaceRouter` 使用完整的 `ToolId` 映射到对应功能模块的独立右侧页面。
 7. 左侧导航栏与右侧内容区各自滚动；选择工具只切换右侧工作区，不耦合具体处理能力。
 8. Renderer 仅在浏览器本地存储最近使用的工具 ID，最多保留 6 项；不记录文件、路径、任务内容或网络数据。
+9. 设置模块通过受控 `settings:select-wallpaper` IPC 选择本机图片；Main 仅返回限制大小和格式后的图片数据，不向 Renderer 暴露文件路径，Renderer 可在当前运行期间调整壁纸模糊度。
+10. 设置的“自定义壁纸”页面提供默认浅色背景与预置图片；预置图片从 `src/renderer/assets/wallpapers/` 在构建时加载，不经过运行时文件读取或网络请求。
 
 ## 后续阶段
 

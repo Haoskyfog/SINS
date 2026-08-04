@@ -1,6 +1,6 @@
 import type { ToolId } from '../model/toolCatalog';
 import { toolGroups } from '../model/toolCatalog';
-import type { ReactNode } from 'react';
+import type { CSSProperties, ReactNode } from 'react';
 
 type AppShellProps = {
   children: ReactNode;
@@ -8,7 +8,10 @@ type AppShellProps = {
   statusMessage: string;
   onSelectTool: (toolId: ToolId) => void;
   onShowHome: () => void;
+  onOpenSettings: () => void;
   onRefreshStatus: () => void;
+  wallpaperBlur: number;
+  wallpaperDataUrl: string | null;
 };
 
 export function AppShell({
@@ -17,10 +20,20 @@ export function AppShell({
   statusMessage,
   onSelectTool,
   onShowHome,
+  onOpenSettings,
   onRefreshStatus,
+  wallpaperBlur,
+  wallpaperDataUrl,
 }: AppShellProps) {
+  const shellStyle = wallpaperDataUrl
+    ? {
+        '--wallpaper-blur': `${wallpaperBlur}px`,
+        backgroundImage: `url("${wallpaperDataUrl}")`,
+      } as CSSProperties
+    : undefined;
+
   return (
-    <main className="shell">
+    <main className={`shell ${wallpaperDataUrl ? 'has-wallpaper' : ''}`} style={shellStyle}>
       <aside className="sidebar">
         <button className="brand" onClick={onShowHome} type="button">
           <span className="brand-mark">S</span><span>SINS</span>
@@ -43,6 +56,7 @@ export function AppShell({
             </section>
           ))}
         </nav>
+        <button className="settings-button" onClick={onOpenSettings} type="button">设置</button>
       </aside>
 
       <section className="content">

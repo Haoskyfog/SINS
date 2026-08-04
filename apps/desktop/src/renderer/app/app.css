@@ -18,6 +18,9 @@ button { cursor: pointer; }
   display: grid;
   grid-template-columns: 244px minmax(0, 1fr);
   height: 100vh;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
   overflow: hidden;
 }
 
@@ -28,13 +31,15 @@ button { cursor: pointer; }
   padding: 28px 18px;
   border-right: 1px solid #d9d8d0;
   background: #f4f3ee;
-  overflow-y: auto;
+  overflow: hidden;
 }
 
 .brand { display: flex; align-items: center; gap: 10px; width: fit-content; padding: 0; border: 0; color: #202b33; background: transparent; font-weight: 700; letter-spacing: 0; }
 .brand-mark { display: grid; place-items: center; width: 28px; height: 28px; border: 1px solid #3b7d6e; color: #2f6f61; font-size: 14px; }
 .sidebar-label, .eyebrow { color: #68736f; font-size: 11px; font-weight: 700; letter-spacing: 0; text-transform: uppercase; }
 .tool-group { margin-bottom: 20px; }
+.tool-group:last-child { margin-bottom: 0; }
+.sidebar nav { flex: 1 1 auto; min-height: 0; overflow-y: auto; }
 .tool-group h2 { margin: 0 0 7px; color: #7b827d; font-size: 11px; font-weight: 600; }
 .tool-item { display: flex; align-items: center; gap: 9px; width: 100%; padding: 8px 10px; border: 0; color: #48544e; background: transparent; text-align: left; }
 .tool-item:hover, .tool-item.active { background: #e3e7de; color: #173c34; }
@@ -42,7 +47,11 @@ button { cursor: pointer; }
 .tool-item.active .tool-dot { border-color: #3c8b76; background: #3c8b76; }
 .sidebar-footer { margin-top: auto; color: #717a74; font-size: 12px; }
 
+.settings-button { width: 100%; margin-top: 20px; padding: 9px 10px; border: 1px solid #cbd0c7; border-radius: 4px; color: #34443d; background: #ecece6; text-align: left; }
+.settings-button:hover { border-color: #76a595; color: #174d40; background: #e3e7de; }
 .content { display: flex; min-width: 0; flex-direction: column; padding: 28px 48px 24px; background: #f9faf4; overflow-y: auto; }
+.has-wallpaper .sidebar { background: rgb(244 243 238 / 84%); backdrop-filter: blur(var(--wallpaper-blur, 10px)); }
+.has-wallpaper .content { background: rgb(249 250 244 / 82%); backdrop-filter: blur(var(--wallpaper-blur, 10px)); }
 .topbar { display: flex; align-items: center; gap: 8px; color: #4d5953; font-size: 13px; }
 .topbar .eyebrow { margin-right: auto; }
 .status-dot { width: 7px; height: 7px; border-radius: 50%; background: #3c8b76; }
@@ -79,6 +88,37 @@ button { cursor: pointer; }
 .feature-marker { display: grid; flex: 0 0 auto; place-items: center; width: 36px; height: 36px; border: 1px solid #91a59b; color: #317664; font-size: 22px; }
 .feature-empty-state h2 { margin: 0 0 6px; color: #304039; font-size: 16px; font-weight: 650; }
 .feature-empty-state p { margin: 0; color: #718078; font-size: 13px; line-height: 1.5; }
+
+.settings-overlay { position: fixed; z-index: 10; inset: 0; display: grid; place-items: center; padding: 32px; background: rgb(24 35 31 / 40%); }
+.settings-dialog { display: grid; grid-template-columns: 196px minmax(0, 1fr); width: min(780px, 100%); min-height: 460px; border: 1px solid #cfd4cb; border-radius: 6px; background: #f9faf4; box-shadow: 0 20px 60px rgb(24 35 31 / 24%); overflow: hidden; }
+.settings-sidebar { padding: 24px 14px; border-right: 1px solid #d9d8d0; background: #f4f3ee; }
+.settings-sidebar-title { margin: 0 8px 22px; color: #202b33; font-size: 15px; font-weight: 700; }
+.settings-nav-item { width: 100%; padding: 9px 10px; border: 0; border-radius: 4px; color: #48544e; background: transparent; text-align: left; }
+.settings-nav-item.active { color: #173c34; background: #e3e7de; }
+.settings-content { min-width: 0; padding: 30px; }
+.settings-header { display: flex; align-items: flex-start; justify-content: space-between; gap: 20px; }
+.settings-header .eyebrow { margin: 0 0 6px; color: #2f7968; }
+.settings-header h2 { margin: 0; color: #1d2926; font-size: 24px; font-weight: 650; }
+.dialog-close-button { padding: 0; border: 0; color: #5e6963; background: transparent; font-size: 13px; }
+.dialog-close-button:hover { color: #174d40; }
+.wallpaper-preview { display: grid; min-height: 240px; margin-top: 30px; place-items: center; border: 1px solid #d5d9d0; border-radius: 6px; color: #718078; background-color: #eff1eb; background-position: center; background-repeat: no-repeat; background-size: cover; font-size: 13px; }
+.wallpaper-preview span { padding: 6px 10px; border-radius: 4px; background: rgb(249 250 244 / 84%); }
+.wallpaper-actions { margin-top: 18px; }
+.wallpaper-select-button { padding: 9px 13px; border: 1px solid #3c8b76; border-radius: 4px; color: #ffffff; background: #317664; }
+.wallpaper-select-button:hover:not(:disabled) { background: #245e50; }
+.wallpaper-select-button:disabled { cursor: wait; opacity: 0.65; }
+.wallpaper-blur-control { display: grid; gap: 8px; margin-top: 20px; color: #48544e; font-size: 13px; }
+.wallpaper-blur-control span { display: flex; justify-content: space-between; }
+.wallpaper-blur-control output { color: #2f7968; font-variant-numeric: tabular-nums; }
+.wallpaper-blur-control input { width: 100%; accent-color: #317664; }
+.wallpaper-error { margin: 10px 0 0; color: #a23b35; font-size: 13px; }
+.default-wallpapers { margin-top: 30px; padding-top: 22px; border-top: 1px solid #d7d9d1; }
+.default-wallpapers h3 { margin: 0 0 14px; color: #304039; font-size: 14px; font-weight: 650; }
+.preset-wallpaper-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; }
+.preset-wallpaper-card { display: grid; gap: 7px; min-width: 0; padding: 7px; border: 1px solid #d5d9d0; border-radius: 5px; color: #48544e; background: #ffffff; font-size: 12px; text-align: left; }
+.preset-wallpaper-card:hover, .preset-wallpaper-card.active { border-color: #3c8b76; color: #173c34; }
+.preset-wallpaper-thumbnail { display: block; width: 100%; aspect-ratio: 16 / 9; border: 1px solid #d5d9d0; border-radius: 3px; background-color: #eff1eb; background-position: center; background-repeat: no-repeat; background-size: cover; }
+.default-wallpaper-thumbnail { background-color: #f9faf4; }
 
 @media (max-width: 1060px) {
   .content { padding: 24px 30px; }

@@ -32,7 +32,7 @@ docx/                         原始 PRD
 
 `main` 处理窗口、文件选择、系统权限、本地服务启动停止及受控原生操作，不放置页面逻辑，也不把任意页面请求转换为文件或命令操作。`preload` 通过 `contextBridge` 提供带 TypeScript 类型的最小 API，不得暴露 `ipcRenderer`、`require`、`process` 或完整 Electron/Node API。`renderer` 只处理 React 展示与状态，禁止使用 `fs`、`path`、`child_process`、shell、Node.js 或完整 Electron API。
 
-IPC 通道为 `<domain>:<action>` 的小写 kebab-case，例如 `files:select-video`、`tasks:cancel`。禁止 `execute`、`invoke-any` 或任意命令字符串通道。请求和响应都必须可序列化，采用统一语义：`{ ok: true, data, requestId }` 或 `{ ok: false, error: { code, message, retryable }, requestId }`。主进程验证参数、来源与权限；错误不得泄漏堆栈、命令行或敏感路径。订阅型通道须提供取消订阅。
+IPC 通道为 `<domain>:<action>` 的小写 kebab-case，例如 `files:select-video`、`settings:select-wallpaper`、`tasks:cancel`。禁止 `execute`、`invoke-any` 或任意命令字符串通道。请求和响应都必须可序列化，采用统一语义：`{ ok: true, data, requestId }` 或 `{ ok: false, error: { code, message, retryable }, requestId }`。主进程验证参数、来源与权限；错误不得泄漏堆栈、命令行或敏感路径。图片选择等文件能力只返回完成显示所需的数据，不向 Renderer 返回原始路径。订阅型通道须提供取消订阅。
 
 ## React MVC 模板
 

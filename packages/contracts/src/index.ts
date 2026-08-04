@@ -12,6 +12,11 @@ export type AppInfo = {
   platform: NodeJS.Platform;
 };
 
+export type WallpaperImage = {
+  dataUrl: string;
+};
+
 export type AppApi = {
   getInfo: (requestId: string) => Promise<IpcResult<AppInfo>>;
+  selectWallpaper: (requestId: string) => Promise<IpcResult<WallpaperImage | null>>;
 };
